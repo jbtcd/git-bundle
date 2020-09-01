@@ -1,0 +1,30 @@
+services:
+    data_collector.datacollector_jbtcd_git:
+        class: GitBundle\DataCollector\GitCollector
+        tags:
+            -
+                name:     data_collector
+                template: '@Git/Collector/git.html.twig'
+                # must match the value returned by the getName() method
+                id:       'jbtcd.git'
+                # optional priority
+                # priority: 300
+        arguments:
+            $gitService: '@GitBundle\Service\GitService'
+            $repositoryName: '%repositoryName%'
+            $repositoryUrl: '%repositoryUrl%'
+            $repositoryCommitUrl: '%repositoryCommitUrl%'
+            $repositoryBranchUrl: '%repositoryBranchUrl%'
+            $maxCommits: '%maxCommits%'
+            $commitIdLength: '%commitIdLength%'
+            $timings: '%timings%'
+        public: false
+        autowire: true
+
+    GitBundle\Service\GitService:
+        arguments:
+            $consoleService: '@GitBundle\Service\ConsoleService'
+        public: false
+
+    GitBundle\Service\ConsoleService:
+        public: false

@@ -1,0 +1,168 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block toolbar %}
+    {% if collector.isGitRepository %}
+        {% set icon %}
+            {{ include("@Git/Icons/gitIcon.svg") }}
+            <span class="sf-toolbar-status sf-toolbar-status-green">{{ collector.currentBranch }}</span>
+            <span class="sf-toolbar-status" style="background-color: {{ collector.color }}">{{ collector.lastCommit.datetime|date('d.m.Y H:i:s') }}</span>
+        {% endset %}
+
+        {% set text %}
+            <div class="sf-toolbar-info-piece">
+                <b>Branch</b>
+                {% if collector.branchUrl != '' %}
+                    <span><a target="_blank" href="{{ collector.branchUrl }}/{{ collector.currentBranch }}">{{ collector.currentBranch }}</a></span>
+                {% else %}
+                    <span>{{ collector.currentBranch }}</span>
+                {% endif %}
+            </div>
+            {% if collector.lastCommit.commitId %}
+                <div class="sf-toolbar-info-piece">
+                    <b>Commit Id</b>
+                    {% if collector.repositoryCommitUrl != '' %}
+                        <span><a target="_blank" href="{{ collector.repositoryCommitUrl }}/{{ collector.lastCommit.commitId }}">{{ collector.lastCommit.commitId[:collector.commitIdLength] }}</a></span>
+                    {% else %}
+                        <span>{{ collector.lastCommit.commitId[:collector.commitIdLength] }}</span>
+                    {% endif %}
+                </div>
+                {% if collector.lastCommit.merge %}
+                    <div class="sf-toolbar-info-piece">
+                        <b>Merge</b>
+                        <span class="sf-toolbar-status sf-toolbar-status-green">{{ collector.lastCommit.merge }}</span>
+                    </div>
+                {% endif %}
+
+                <div class="sf-toolbar-info-piece">
+                    <b>Author</b>
+                    {% if collector.lastCommit.email is defined %}
+                        <span><a href="mailto:{{ collector.lastCommit.email }}">{{ collector.lastCommit.author }}</a></span>
+                    {% else %}
+                        <span>{{ collector.lastCommit.author }}</span>
+                    {% endif %}
+                </div>
+
+                {% if collector.lastCommit.datetime is defined %}
+                    <div class="sf-toolbar-info-piece">
+                        <b>Date</b>
+                        <span>{{ collector.lastCommit.datetime|date("d.m.Y H:i:s") }}</span>
+                    </div>
+                {% endif %}
+                {% if collector.lastCommit.message is defined %}
+                    <div class="sf-toolbar-info-piece">
+                        <b>Message</b>
+                        <span>{{ collector.lastCommit.message[:60] }}</span>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endset %}
+
+        {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { 'link': true }) }}
+    {% endif %}
+
+{% endblock %}
+
+{% block menu %}
+    <span class="label {% if not collector.isGitRepository %}disabled{% endif %}">
+        <span class="icon">
+            {{ include("@Git/Icons/gitIcon.svg") }}
+        </span>
+        <strong>Git</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2>Git</h2>
+    {% if not collector.isGitRepository %}
+        <div class="empty">
+            <p>Can't find any git Repository. Is git Installed?</p>
+        </div>
+    {% else %}
+        <div class="metrics">
+            {% if collector.repositoryUrl != '' %}
+                <div class="metric">
+                    <span class="value">
+                        <a target="_blank" href="{{ collector.repositoryUrl }}">{{ collector.repositoryName }}</a>
+                    </span>
+                    <span class="label">Repository</span>
+                </div>
+            {% endif %}
+            <div class="metric">
+                {% if collector.branchUrl != '' %}
+                    <span class="value">
+                        <a target="_blank" href="{{ collector.branchUrl }}/{{ collector.currentBranch }}">{{ collector.currentBranch }}</a>
+                    </span>
+                {% else %}
+                    <span class="value">{{ collector.currentBranch }}</span>
+                {% endif %}
+                <span class="label">Current Branch</span>
+            </div>
+            <div class="metric">
+                <span class="value">{{ collector.time|number_format(2) }} <span class="unit">ms</span></span>
+                <span class="label">Timing</span>
+            </div>
+            <div class="metric">
+                <span class="value">
+                    {% if collector.repositoryCommitUrl == "" %}
+                        {{ collector.lastCommit.commitId[:collector.commitIdLength] }}
+                    {% else %}
+                        <a target="_blank" href="{{ collector.repositoryCommitUrl }}/{{ collector.lastCommit.commitId }}">{{ collector.lastCommit.commitId[:collector.commitIdLength] }}</a>
+                    {% endif %}
+                </span>
+                <span class="label" style="background-color: {{ collector.color }}; color: #ffffff;">Last Commit</span>
+            </div>
+        </div>
+        <h2>Branches <small>({{ collector.branches|length }})</small></h2>
+        {% if collector.branches|length == 0 %}
+            <div class="empty">
+                <p>Can't find any git branches. That's not possible!</p>
+            </div>
+        {% else %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Branch</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for branch in collector.branches %}
+                    <tr>
+                        <td>{{ branch }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        <h2>Commits <small>({{ collector.commits|length }})</small></h2>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th class="nowrap">Commit Id</th>
+                <th>Date</th>
+                <th>Author</th>
+                <th>Commit Message</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for commit in collector.commits %}
+                <tr>
+                    <td class="nowrap">{{ loop.revindex }}</td>
+                    {% if collector.repositoryCommitUrl == "" %}
+                        <td class="nowrap">{{ commit.commitId[:collector.commitIdLength] }}</td>
+                    {% else %}
+                        <td class="nowrap"><a target="_blank" href="{{ collector.repositoryCommitUrl }}/{{ commit.id }}">{{ commit.id[:collector.commitIdLength] }}</a></td>
+                    {% endif %}
+                    <td class="nowrap">{{ commit.datetime|date("d.m.Y H:i:s") }}</td>
+                    {% if commit.email is defined %}
+                        <td class="nowrap"><a href="mailto:{{ commit.email }}">{{ commit.author }}</a></td>
+                    {% else %}
+                        <td class="nowrap">{{ commit.author }}</td>
+                    {% endif %}
+                    <td>{{ commit.message }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
