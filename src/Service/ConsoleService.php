@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -9,6 +9,9 @@
 
 namespace GitBundle\Service;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
 /**
  * Class ConsoleService
  *
@@ -17,11 +20,15 @@ namespace GitBundle\Service;
 class ConsoleService
 {
     public function exec(
-        string $command
+        array $processParameters
     ): array {
-        $output = [];
-        exec($command, $output);
+        $process = new Process($processParameters, getcwd() . '/../');
+        $process->run();
 
-        return $output;
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        return explode(PHP_EOL, $process->getOutput());
     }
 }

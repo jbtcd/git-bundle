@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -15,11 +15,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * Class GitExtension
+ * Extension class for GitBundle
  *
  * @author Jonah Böther
- *
- * @codeCoverageIgnore
  */
 class GitExtension extends Extension
 {

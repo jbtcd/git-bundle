@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -18,14 +18,11 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
- * Class GitCollector
+ * DataCollector for the GitBundle
  */
 class GitCollector extends DataCollector
 {
-    /** @var GitService */
-    private $gitService;
-
-    /** @var array */
+    private GitService $gitService;
     protected $data;
 
     public function __construct(
@@ -73,7 +70,7 @@ class GitCollector extends DataCollector
 
         $time = $stopWatch->stop('jbtcd.git')->getDuration();
 
-        $this->data['time'] = $time;
+        $this->data['time'] = (int)$time;
     }
 
     public function reset(): void

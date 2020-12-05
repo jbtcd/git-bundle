@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -14,7 +14,7 @@ use DateTimeZone;
 use GitBundle\Model\CommitModel;
 
 /**
- * Class ColorService
+ * ColorService for GitBundle
  *
  * @author Jonah Böther
  */
@@ -22,8 +22,7 @@ class ColorService
 {
     const DEFAULT_COLOR = '#A46A1F';
 
-    /** @var array */
-    private $timeConfig;
+    private array $timeConfig;
 
     public function __construct(
         array $timeConfig

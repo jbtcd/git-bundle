@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -10,33 +10,25 @@
 namespace GitBundle\Model;
 
 /**
- * Class CommitModel
- *
- * @codeCoverageIgnore
+ * Provides information about a commit
  *
  * @author Jonah Böther
  */
 class CommitModel
 {
-    /** @var string */
-    private $commitId;
-    /** @var string */
-    private $author;
-    /** @var string */
-    private $email;
-    /** @var \DateTime */
-    private $dateTime;
-    /** @var bool */
-    private $isMerge;
-    /** @var string */
-    private $message;
+    private string $commitId;
+    private string $author;
+    private string $email;
+    private \DateTime $dateTime;
+    private bool $isMerge;
+    private string $message;
 
     public function getCommitId(): string
     {
         return $this->commitId;
     }
 
-    public function setCommitId(string $commitId): CommitModel
+    public function setCommitId(string $commitId): self
     {
         $this->commitId = $commitId;
 
@@ -48,7 +40,7 @@ class CommitModel
         return $this->author;
     }
 
-    public function setAuthor(string $author): CommitModel
+    public function setAuthor(string $author): self
     {
         $this->author = $author;
 
@@ -60,7 +52,7 @@ class CommitModel
         return $this->email;
     }
 
-    public function setEmail(string $email): CommitModel
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -69,10 +61,10 @@ class CommitModel
 
     public function getDateTime(): \DateTime
     {
-        return $this->dateTime;
+        return $this->dateTime ?? new \DateTime();
     }
 
-    public function setDateTime(\DateTime $dateTime): CommitModel
+    public function setDateTime(\DateTime $dateTime): self
     {
         $this->dateTime = $dateTime;
 
@@ -84,7 +76,7 @@ class CommitModel
         return $this->isMerge ?? false;
     }
 
-    public function setIsMerge(bool $isMerge): CommitModel
+    public function setIsMerge(bool $isMerge): self
     {
         $this->isMerge = $isMerge;
 
@@ -96,7 +88,7 @@ class CommitModel
         return $this->message;
     }
 
-    public function setMessage(string $message): CommitModel
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 

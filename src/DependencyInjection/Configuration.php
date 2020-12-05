@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -13,11 +13,9 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * Class Configuration
+ * Provides configuration fot GitBundle
  *
  * @author Jonah Böther
- *
- * @codeCoverageIgnore
  */
 class Configuration implements ConfigurationInterface
 {

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -9,7 +9,6 @@
 
 namespace GitBundle\Service;
 
-use DateTime;
 use GitBundle\Model\CommitModel;
 
 /**
@@ -33,7 +32,7 @@ class GitService
 
     public function execGitBranch(): void
     {
-        $data = $this->consoleService->exec('git branch');
+        $data = $this->consoleService->exec(['git', 'branch']);
 
         foreach ($data as $branch) {
             $isMaster = (substr($branch, 0, 2) === '* ');
@@ -55,11 +54,13 @@ class GitService
     ): void {
         if ($this->hasBranches()) {
             for ($i = 0; $i < $maxCommits; $i++) {
-                    $command = 'git log --skip ' . $i . ' -n 1';
+                $command = 'git log --skip ' . $i . ' -n 1';
+
+                $command = explode(' ', $command);
 
                 $data = $this->consoleService->exec($command);
 
-                if (!empty($data)) {
+                if (!empty($data[0])) {
                     $commit = $this->readCommitData($data);
 
                     $this->commits[] = $commit;
@@ -90,7 +91,7 @@ class GitService
             } elseif (strpos($line, 'Date') === 0) {
                 $date = trim(substr($line, 5)); // ddd mmm n hh:mm:ss yyyy +gmt
 
-                $commit->setDateTime(new DateTime($date));
+                $commit->setDateTime(new \DateTime($date));
 
                 continue;
             } elseif (strpos($line, 'Merge') === 0) {
@@ -107,7 +108,7 @@ class GitService
 
     public function hasBranches(): bool
     {
-        return empty($this->branches) ? false : true;
+        return !empty($this->branches);
     }
 
     public function getBranches(): array
