@@ -2,7 +2,7 @@
 
 
 [![@jbtcdDE on Twitter](http://img.shields.io/badge/twitter-%40jbtcdDE-blue.svg?style=flat)](https://twitter.com/jbtcdDE)
-[![Build Status](https://travis-ci.com/jbtcd/git-bundle.svg?branch=master)](https://travis-ci.com/jbtcd/git-bundle)
+[![Build Status](https://travis-ci.com/jbtcd/git-bundle.svg?branch=main)](https://travis-ci.com/jbtcd/git-bundle)
 [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![packagist](https://img.shields.io/packagist/v/jbtcd/git-bundle.svg?style=flat-square)](https://packagist.org/packages/jbtcd/git-bundle)
 [![downloads](https://img.shields.io/packagist/dt/jbtcd/git-bundle.svg?style=flat-square)](https://packagist.org/packages/jbtcd/git-bundle)
