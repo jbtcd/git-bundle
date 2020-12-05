@@ -19,6 +19,7 @@ class ConsoleService
     public function exec(
         string $command
     ): array {
+        $output = [];
         exec($command, $output);
 
         return $output;

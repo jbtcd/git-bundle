@@ -19,21 +19,17 @@ use GitBundle\Model\CommitModel;
  */
 class GitService
 {
-    /** @var ConsoleService */
-    private $consoleService;
+    private ConsoleService $consoleService;
+
+    private array $branches;
+    private string $currentBranch;
+    private array $commits;
 
     public function __construct(
         ConsoleService $consoleService
     ) {
         $this->consoleService = $consoleService;
     }
-
-    /** @var array */
-    private $branches;
-    /** @var string */
-    private $currentBranch;
-    /** @var array */
-    private $commits;
 
     public function execGitBranch(): void
     {
@@ -81,6 +77,7 @@ class GitService
             if (strpos($line, 'commit') === 0) {
                 $commit->setCommitId(substr($line, 7));
             } elseif (strpos($line, 'Author') === 0) {
+                $author = [];
                 preg_match('$Author: ([^<]+)<(.+)>$', $line, $author);
                 if (isset($author[1])) {
                     $commit->setAuthor($author[1]);

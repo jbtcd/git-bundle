@@ -23,10 +23,9 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder('git');
 
-        $rootNode = $treeBuilder->root('git');
-        $rootNode
+        $treeBuilder->getRootNode()
             ->children()
                 ->arrayNode('timings')
                     ->arrayPrototype()

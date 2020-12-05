@@ -58,7 +58,7 @@ class ColorServiceTest extends TestCase
                         'max' => 50,
                     ],
                 ],
-                'minutesSinceCommit' => 37.5,
+                'minutesSinceCommit' => 37,
                 'expectedResult' => '#123',
             ],
             'Test fallback if last Commit not in complete time range' => [
