@@ -19,7 +19,7 @@
             </div>
             {% if collector.lastCommit.commitId %}
                 <div class="sf-toolbar-info-piece">
-                    <b>Commit Id</b>
+                    <b>Commit</b>
                     {% if collector.repositoryCommitUrl != '' %}
                         <span><a target="_blank" href="{{ collector.repositoryCommitUrl }}/{{ collector.lastCommit.commitId }}">{{ collector.lastCommit.commitId[:collector.commitIdLength] }}</a></span>
                     {% else %}
@@ -98,7 +98,7 @@
                 <span class="label">Current Branch</span>
             </div>
             <div class="metric">
-                <span class="value">{{ collector.time|number_format(2) }} <span class="unit">ms</span></span>
+                <span class="value">{{ collector.time|number_format(0) }} <span class="unit">ms</span></span>
                 <span class="label">Timing</span>
             </div>
             <div class="metric">
@@ -138,10 +138,10 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th class="nowrap">Commit Id</th>
+                <th class="nowrap">Commit</th>
                 <th>Date</th>
                 <th>Author</th>
-                <th>Commit Message</th>
+                <th>Message</th>
             </tr>
             </thead>
             <tbody>

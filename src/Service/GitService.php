@@ -36,6 +36,10 @@ class GitService
         $data = $this->consoleService->exec(['git', 'branch']);
 
         foreach ($data as $branch) {
+            if (empty($branch)) {
+                continue;
+            }
+
             $isMaster = (substr($branch, 0, 2) === '* ');
 
             if ($isMaster === true) {
@@ -76,6 +80,10 @@ class GitService
         $commit = new CommitModel();
 
         foreach ($data as $line) {
+            if (empty($line)) {
+                continue;
+            }
+
             if (strpos($line, 'commit') === 0) {
                 $commit->setCommitId(substr($line, 7));
             } elseif (strpos($line, 'Author') === 0) {
