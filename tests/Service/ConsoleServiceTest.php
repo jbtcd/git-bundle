@@ -23,7 +23,7 @@ class ConsoleServiceTest extends TestCase
     {
         $consoleService = new ConsoleService();
 
-        $result = $consoleService->exec('echo "Hello World"');
+        $result = $consoleService->exec(['echo', 'Hello World']);
 
         $this->assertEquals('Hello World', $result[0]);
     }

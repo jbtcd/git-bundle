@@ -9,6 +9,8 @@
 
 namespace GitBundle\Model;
 
+use DateTime;
+
 /**
  * Provides information about a commit
  *
@@ -19,7 +21,7 @@ class CommitModel
     private string $commitId;
     private string $author;
     private string $email;
-    private \DateTime $dateTime;
+    private DateTime $dateTime;
     private bool $isMerge;
     private string $message;
 
@@ -59,12 +61,12 @@ class CommitModel
         return $this;
     }
 
-    public function getDateTime(): \DateTime
+    public function getDateTime(): DateTime
     {
-        return $this->dateTime ?? new \DateTime();
+        return $this->dateTime ?? new DateTime();
     }
 
-    public function setDateTime(\DateTime $dateTime): self
+    public function setDateTime(DateTime $dateTime): self
     {
         $this->dateTime = $dateTime;
 

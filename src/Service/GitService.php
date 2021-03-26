@@ -9,6 +9,7 @@
 
 namespace GitBundle\Service;
 
+use DateTime;
 use GitBundle\Model\CommitModel;
 
 /**
@@ -91,7 +92,7 @@ class GitService
             } elseif (strpos($line, 'Date') === 0) {
                 $date = trim(substr($line, 5)); // ddd mmm n hh:mm:ss yyyy +gmt
 
-                $commit->setDateTime(new \DateTime($date));
+                $commit->setDateTime(new DateTime($date));
 
                 continue;
             } elseif (strpos($line, 'Merge') === 0) {
