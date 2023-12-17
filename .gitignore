@@ -1,5 +1,7 @@
-.idea/
 vendor/
+
+composer.lock
+
 .phpcs-cache
 .phplint-cache
 .phpunit.result.cache
