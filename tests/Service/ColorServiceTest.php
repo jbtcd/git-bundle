@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ColorServiceTest extends TestCase
 {
-    public function dateProviderColorPicker(): array
+    public static function dateProviderColorPicker(): array
     {
         return [
             'Test fallback color, if the config is empty' => [

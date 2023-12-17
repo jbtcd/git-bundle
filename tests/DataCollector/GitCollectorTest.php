@@ -45,7 +45,7 @@ class GitCollectorTest extends TestCase
         $this->assertEquals('jbtcd.git', $gitCollector->getName());
     }
 
-    public function providerTestCollector(): array
+    public static function providerTestCollector(): array
     {
         return [
             'default dataset' => [

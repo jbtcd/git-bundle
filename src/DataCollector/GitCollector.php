@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 /**
  * DataCollector for the GitBundle
@@ -23,7 +24,8 @@ use Symfony\Component\Stopwatch\Stopwatch;
 class GitCollector extends DataCollector
 {
     private GitService $gitService;
-    protected $data;
+
+    protected array|Data $data;
 
     public function __construct(
         GitService $gitService,
