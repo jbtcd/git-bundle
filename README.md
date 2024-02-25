@@ -2,6 +2,7 @@
 
 
 [![@jbtcd on Threads](http://img.shields.io/badge/Threads-%40jbtcd-blue.svg?style=flat-square)](https://www.threads.net/@jbtcd)
+[![CI](https://github.com/jbtcd/git-bundle/actions/workflows/ci.yml/badge.svg?style=flat-square)](https://github.com/jbtcd/git-bundle/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![packagist](https://img.shields.io/packagist/v/jbtcd/git-bundle.svg?style=flat-square)](https://packagist.org/packages/jbtcd/git-bundle)
 [![downloads](https://img.shields.io/packagist/dt/jbtcd/git-bundle.svg?style=flat-square)](https://packagist.org/packages/jbtcd/git-bundle)
