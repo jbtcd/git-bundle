@@ -12,7 +12,7 @@ namespace GitBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 /**
  * Extension class for GitBundle
@@ -28,15 +28,7 @@ class GitExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('repositoryName', $config['repositoryName']);
-        $container->setParameter('repositoryUrl', $config['repositoryUrl']);
-        $container->setParameter('maxCommits', $config['maxCommits']);
-        $container->setParameter('commitIdLength', $config['commitIdLength']);
-        $container->setParameter('repositoryCommitUrl', $config['repositoryCommitUrl']);
-        $container->setParameter('repositoryBranchUrl', $config['repositoryBranchUrl']);
-        $container->setParameter('timings', $config['timings']);
-
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('git.yaml');
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('git.xml');
     }
 }

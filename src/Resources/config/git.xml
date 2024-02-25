@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="data_collector.datacollector_git" class="GitBundle\DataCollector\GitCollector" public="false" autowire="true">
+            <tag name="data_collector" template="@Git/Collector/git.html.twig" id="git" priority="250"/>
+        </service>
+
+        <service id="GitBundle\Service\GitConsoleService" autowire="true" />
+        <service id="GitBundle\Service\GitConsoleServiceInterface" alias="GitBundle\Service\GitConsoleService" />
+    </services>
+</container>

@@ -1,0 +1,13 @@
+parameters:
+    level: 6
+    paths:
+        - src
+        - tests
+    type_coverage:
+        return_type: 100
+        param_type: 100
+        property_type: 100
+    ignoreErrors:
+        -
+            message: '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\).#'
+            path: src/DependencyInjection/Configuration.php

@@ -18,13 +18,34 @@
         "symfony/process": "^5.4 || ^6.3 || ^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10.5"
+        "phpunit/phpunit": "^10.5",
+        "tomasvotruba/type-coverage": "^0.2.1",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/extension-installer": "^1.3"
     },
     "scripts": {
+        "phpunit": "vendor/bin/phpunit",
+        "phpstan": "vendor/bin/phpstan",
+        "tests": [
+            "@phpunit",
+            "@phpstan"
+        ]
     },
     "autoload": {
         "psr-4": {
             "GitBundle\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
         }
     }
 }
